@@ -26,21 +26,21 @@ export const getArticle = async ({
   let data = await fetch(`https://raw.githubusercontent.com/${user}/${repo}/${branch}/${article}.md`);
   return data
 };
-let data = await fetch(repoUrl());
-let json = await data.json();
-let files = json.tree;
-let articles = files.filter((file:any) => file.path.includes(".md"));
-let articlePromises = articles.map((article:any) => getArticle({ article: article.path }));
-let allArticles = await Promise.all(articlePromises);
-// save each article
-allArticles.forEach(async(article:any) => {
-  let text= await article.text()
-// replace data with publish_data
-text=text.replace("date", "publish_date")
-//get the markdown file name from url
-let fileName=article.url.split("/").pop()
-if(fileName==='README.md'||fileName==='TableOfContents.md'){
-  return
-}
-await Deno.writeTextFile(`./posts/${fileName}`,text);
-})
+// let data = await fetch(repoUrl());
+// let json = await data.json();
+// let files = json.tree;
+// let articles = files.filter((file:any) => file.path.includes(".md"));
+// let articlePromises = articles.map((article:any) => getArticle({ article: article.path }));
+// let allArticles = await Promise.all(articlePromises);
+// // save each article
+// allArticles.forEach(async(article:any) => {
+//   let text= await article.text()
+// // replace data with publish_data
+// text=text.replace("date", "publish_date")
+// //get the markdown file name from url
+// let fileName=article.url.split("/").pop()
+// if(fileName==='README.md'||fileName==='TableOfContents.md'){
+//   return
+// }
+// await Deno.writeTextFile(`./posts/${fileName}`,text);
+// })
