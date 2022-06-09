@@ -1,3 +1,4 @@
+import {getArticle,_repoData} from 'https://esm.sh/@about7sharks/get-articles@0.0.3';
 export const config = {
   user: "About7Sharks",
   name: "Zachary Carlin",
@@ -14,43 +15,21 @@ export const config = {
 };
 
 
-export const repoUrl = (
-  user: string = config.user,
-  repo: string = config.repo,
-): string => {
-  return `https://api.github.com/repos/${user}/${repo}/git/trees/main?recursive=1`;
-};
-// helper function to get an article url
-export const getArticle = async ({
-  user = config.user,
-  repo = config.repo,
-  article = "README",
-}) => {
-  // if includes .md, remove it
-  if (article.includes(".md")) article = article.replace(".md", "");
-  let data = await fetch(`https://raw.githubusercontent.com/${user}/${repo}/main/${article}.md`);
-  return data
-};
-
-
-
-let data = await fetch(repoUrl());
-let {tree} = await data.json();
+let {tree} = await _repoData({user:config.user, repo:config.repo}) as any;
 let articles = tree.filter((file:any) => file.path.includes(".md"));
-let articlePromises = articles.map((article:any) => getArticle({ article: article.path }));
+let articlePromises = articles.map((article:any) => getArticle({ article: article.path,user:config.user,repo:config.repo}));
 let allArticles = await Promise.all(articlePromises);
 // save each article
-allArticles.forEach(async(article:any) => {
-  let text= await article.text()
+allArticles.forEach(async({data,content}) => {
 // replace data with publish_data
-text=text.replace("date", "publish_date")
+content=content.replace("date", "publish_date")
 //get the markdown file name from url
-let fileName=article.url.split("/").pop()
+let fileName=data.url.split("/").pop()
 if(fileName==='README.md'||fileName==='TableOfContents.md'){
   return
 }
 try{
-  await Deno.writeTextFile(`./posts/${fileName}`,text);
+  await Deno.writeTextFile(`./posts/${fileName}`,content);
 }catch(e){
   console.log('wrong environment',e)
 }
