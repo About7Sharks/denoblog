@@ -18,10 +18,10 @@ To interact with AccuCrew simply text +1-334-402-4980 like you would text a norm
 
 
 
-![AccuCrew](https://accubrew.io/accuBud.jpeg)
+![AccuCrew](https://353a23c500dde3b2ad58-c49fe7e7355d384845270f4a7a0a7aa1.ssl.cf2.rackcdn.com/5edd8a5f4d7c220008625fff/screenshot.png)
 
 
-## Avaliable Commands
+## Available Commands
 Due to AccuCrew's Natural Language Processor commands don't need to be exact, they just need to be close enough.
 
 | Task | Trigger | Response |
@@ -34,4 +34,3 @@ Due to AccuCrew's Natural Language Processor commands don't need to be exact, th
 |unmute_account| "can you unmute my account"|Sure, I can unmute your account from here. Your Accubrew account has been unmuted, you will now begin to receive texts on triggered alerts.|
 | claim_probe |"I want to add a new Probe"|Sure, I can help you claim your probe. We've generated a unique claim page for your Probe. http://rust.accubrew.beer/?claim_code=codehere&UID=userid|
 |humor_response|"send nudes"|Haha funny|
-
