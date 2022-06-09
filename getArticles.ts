@@ -13,18 +13,19 @@ export const config = {
     { title: 'Instagram', url: "https://Instagram.com/zachary_carlin" }
   ],
 };
+export type Article = { path: string }
 
 
-let {tree} = await _repoData({user:config.user, repo:config.repo}) as any;
-let articles = tree.filter((file:any) => file.path.includes(".md"));
-let articlePromises = articles.map((article:any) => getArticle({ article: article.path,user:config.user,repo:config.repo}));
-let allArticles = await Promise.all(articlePromises);
+const {tree} = await _repoData({user:config.user, repo:config.repo});
+const articles = tree.filter((file:Article) => file.path.includes(".md"));
+const articlePromises = articles.map((article:Article) => getArticle({ article: article.path,user:config.user,repo:config.repo}));
+const allArticles = await Promise.all(articlePromises);
 // save each article
 allArticles.forEach(async({data,content}) => {
 // replace data with publish_data
 content=content.replace("date", "publish_date")
 //get the markdown file name from url
-let fileName=data.url.split("/").pop()
+const fileName=data.url.split("/").pop()
 if(fileName==='README.md'||fileName==='TableOfContents.md'){
   return
 }
