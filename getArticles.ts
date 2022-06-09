@@ -49,5 +49,9 @@ let fileName=article.url.split("/").pop()
 if(fileName==='README.md'||fileName==='TableOfContents.md'){
   return
 }
-await Deno.writeTextFile(`./posts/${fileName}`,text);
+try{
+  await Deno.writeTextFile(`./posts/${fileName}`,text);
+}catch(e){
+  console.log('wrong environment',e)
+}
 })
