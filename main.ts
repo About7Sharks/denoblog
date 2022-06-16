@@ -1,5 +1,4 @@
-import blog from "https://deno.land/x/blog@0.3.3/blog.tsx";
-import {config} from "./getArticles.ts";
+import { blog, config } from './deps.ts';
 blog({
   title: config.name,
   author: config.name,
